@@ -6,3 +6,11 @@ Windows Registry Editor Version 5.00
 "Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,00,00,52,e0,00,00,00,00
 
 #This is the second step and the powershell portion.  You will need to use PowerShell in Adminstrator mode
+#Disable insert key with PowerShell
+$Bkey = "00,00,00,00,00,00,00,00,02,00,00,00,00,00,52,e0,00,00,00,00"
+$Path   = 'HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout'
+$Name  = "Scancode Map"
+$hex = $Bkey.Split(',') | % { "0x$_"}
+ 
+#Insert key in registry PowerShell
+New-ItemProperty -Path $Path -Name $Name -PropertyType Binary -Value ([byte[]]$hex)
