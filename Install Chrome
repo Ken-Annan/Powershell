@@ -1,0 +1,6 @@
+//This Powershell script will automatically install Chrome on a computer with admin access.  This could be combined with other scripts to help automate computer setup.
+$Path = $env:TEMP;
+$Installer = "chrome_installer.exe";
+Invoke-WebRequest "http://dl.google.com/chrome/install/latest/chrome_installer.exe" -OutFile $Path\$Installer;
+Start-Process -FilePath $Path\$Installer -Args "/silent /install" -Verb RunAs -Wait;
+Remove-Item $Path\$Installer
