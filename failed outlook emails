@@ -1,0 +1,8 @@
+//Will return failed Outlook emails from either 10, 7 or 4 days in the past.
+
+$UserCredential = Get-Credential
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $UserCredential -Authentication Basic -AllowRedirection
+Import-PSSession $Session -DisableNameChecking
+Get-MessageTrace -StartDate (Get-Date).AddDays(-10) -EndDate (Get-Date) -SenderAddress "sendemail@something.org here"| where {$_.Subject -like "Email Subject here"}
+ Get-MessageTrace -StartDate (Get-Date).AddDays(-4) -EndDate (Get-Date)| Select Received,*Address,*IP,Subject,Status,Size
+  Get-MessageTrace -StartDate (Get-Date).AddDays(-7) -EndDate (Get-Date)| Where Status -EQ "Failed"
