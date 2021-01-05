@@ -1,0 +1,22 @@
+#Install or Update-to the latest version of Zoom
+
+$LoggedOnUser=$((Get-WMIObject -class Win32_ComputerSystem | select username).username).tostring() #returns user presently logged in rather than Administrator
+$CurrentUser = $LoggedOnUser -creplace '^[^\\]*\\', '' #uses regular expression to trim away the computer name, leaving the user name
+$CurrentUserProfile= "$env:SystemDrive\Users\$CurrentUser"
+
+$ZoomFolder="$CurrentUserProfile\AppData\Roaming\Zoom"
+
+
+Set-Location -Path "$CurrentUserProfile\Downloads"
+
+# Removes old and duplicate ZoomInstaller.exe
+
+Remove-Item 'ZoomInstaller*.exe'
+
+Write-Host "All previous installers removed. Downloading latest version..."
+
+Invoke-WebRequest 'https://zoom.us/client/latest/ZoomInstaller.exe' -OutFile 'ZoomInstaller.exe'
+
+invoke-item $CurrentUserProfile\Downloads\ZoomInstaller.exe
+
+Write-Host "Finished installing latest version of Zoom."
