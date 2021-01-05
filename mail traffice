@@ -1,0 +1,5 @@
+//Will return mail traffic for outbound mail in Office 365.
+
+//You will need to connect to Outlook first
+
+Get-MailTrafficReport -StartDate 09/01/2020 -EndDate 09/16/2020 -Direction Outbound
