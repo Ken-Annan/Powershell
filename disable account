@@ -1,0 +1,4 @@
+//Will prevent user from logging into Office 365
+
+Set-AzureADUser -ObjectID "user email address here" -AccountEnabled $false
+Set-AzureADUser -ObjectID "user email address here" -AccountEnabled $false
