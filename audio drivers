@@ -1,0 +1,2 @@
+//Will return audio drivers of computer.
+Get-CimInstance win32_sounddevice | fl *
