@@ -1,0 +1,7 @@
+Function Get-Autoreply {
+$UserCredential = Get-Credential
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $UserCredential -Authentication Basic -AllowRedirection
+Import-PSSession $Session -DisableNameChecking
+Set-MailboxAutoReplyConfiguration -Identity users email address -AutoReplyState Scheduled -StartTime "8/28/2020 4:30:00 PM" -EndTime "8/31/2050 08:30:00" -InternalMessage "Internal Message to other users in Office 365 tenant" -ExternalMessage "external message to all emails"
+return $Autoreply
+}
