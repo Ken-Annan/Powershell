@@ -1,0 +1,18 @@
+#Logs you into Office 365 and prompts you to enter in the users first name and last name. It then spilts that username and creates a variable for the domain after which a substring is created to get the first letter of the first name and appends the last name after which the domain is added.
+$UserCredential = Get-Credential
+$DisplayName = Read-Host -Prompt "Please enter the Staff Members full name"
+$CharArray =$DisplayName.Split(" ")
+$String1= $CharArray[0]
+$String2= $CharArray[1] 
+write-host $String1
+write-host $String2
+$FirstName = $String1
+$LastName = $String2
+$url = "domain"
+$String3 = $FirstName.Substring(0,1)
+$String3 += $LastName
+$String3 += $url
+#write-host $string3
+Connect-MsolService
+New-MsolUser -DisplayName $DisplayName -FirstName $FirstName -LastName $LastName -UserPrincipalName $String3 -UsageLocation US
+Get-MsolUser -UserPrincipalName $String3 
