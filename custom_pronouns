@@ -1,0 +1,9 @@
+#Creates a new distribution list to pull from
+New-DistributionGroup -Name "Pronoun-He" -Members ($pronouns | where -property pronouns -like "*him*").user;
+New-DistributionGroup -Name "Pronoun-She" -Members ($pronouns | where -property pronouns -like "*her*").user;
+New-DistributionGroup -Name "Pronoun-They" -Members ($pronouns | where -property pronouns -like "*they*").user;
+#Imports a CSV with the username
+$pronouns = (import-csv File.csv);
+foreach ($user in $pronouns) {Set-Mailbox $user.user -CustomAttribute1 $user.pronouns}
+#Gets and checks the custom attribute
+Get-Mailbox username |select CustomAttribute1
